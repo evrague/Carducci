@@ -11,6 +11,9 @@
           options.navigation
         );
       }
+
+      
+
       $.fn.mauGallery.listeners(options);
 
       $(this)
@@ -59,10 +62,10 @@
 
     $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
     $(".gallery").on("click", ".mg-prev", () =>
-      $.fn.mauGallery.methods.prevImage(options.lightboxId)
+      $.fn.mauGallery.methods.prevImage(options.lightboxId)// c'est ici le problème <
     );
     $(".gallery").on("click", ".mg-next", () =>
-      $.fn.mauGallery.methods.nextImage(options.lightboxId)
+      $.fn.mauGallery.methods.nextImage(options.lightboxId)// c'est ici le problème >
     );
   };
   $.fn.mauGallery.methods = {
@@ -119,6 +122,7 @@
         .attr("src", element.attr("src"));
       $(`#${lightboxId}`).modal("toggle");
     },
+
     prevImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -126,11 +130,11 @@
           activeImage = $(this);
         }
       });
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
+      let activeTag = $(".tags-bar span.active-tag").data("images-toggle"); // ici on recupere le tag
       let imagesCollection = [];
-      if (activeTag === "all") {
+      if (activeTag === "all") { // ici encore un problème d'affichage des images dans la modale
         $(".item-column").each(function() {
-          if ($(this).children("img").length) {
+          if ($(this).children("img").length > 0) {
             imagesCollection.push($(this).children("img"));
           }
         });
@@ -139,25 +143,27 @@
           if (
             $(this)
               .children("img")
-              .data("gallery-tag") === activeTag
+              .data("gallery-tag") === activeTag // ue variable qui change
           ) {
             imagesCollection.push($(this).children("img"));
           }
         });
       }
-      let index = 0,
-        next = null;
+      // ici ca finit le remplissage de la table des images 
+      let index = 0, next = null;
 
+      // parcourir les images de la liste imagesCollections
       $(imagesCollection).each(function(i) {
+        i=i+1;
         if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i ;
+          index = i;   // 0 1 2 3 4 5 6 7 8 9        
         }
       });
-      next =
-        imagesCollection[index] ||
-        imagesCollection[imagesCollection.length - 1];
+
+      next = imagesCollection[index] || imagesCollection[0];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
+
     nextImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -188,6 +194,7 @@
         next = null;
 
       $(imagesCollection).each(function(i) {
+        i=i+1;
         if ($(activeImage).attr("src") === $(this).attr("src")) {
           index = i;
         }
@@ -195,6 +202,7 @@
       next = imagesCollection[index] || imagesCollection[0];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
+
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
         lightboxId ? lightboxId : "galleryLightbox"
@@ -204,14 +212,14 @@
                         <div class="modal-body">
                             ${
                               navigation
-                                ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
+                                ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"> < </div>'
                                 : '<span style="display:none;" />'
                             }
                             <img class="lightboxImage img-fluid" alt="Contenu de l'image affichée dans la modale au clique"/>
                             ${
                               navigation
-                                ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
-                                : '<span style="display:none;" />'
+                                ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}"> > </div>'
+                                : '<span style="display:none;" />' 
                             }
                         </div>
                     </div>
