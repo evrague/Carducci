@@ -395,9 +395,17 @@ footer {
     padding-top: 10px;
     font-size: 0.9em;
 }
-.carousel-control-next-icon{
-	background-image: url("https://img.icons8.com/ios-filled/50/FA5252/next.png") !important;
+.carousel-control-next{
+	opacity: 1 !important;
 }
-.carousel-control-prev-icon{
-	background-image: url("https://img.icons8.com/glyph-neue/64/FA5252/left-squared.png") !important;
+.carousel-control-prev{
+	opacity: 1 !important;
+}
+.bouton-caroussel-net{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	background-color: black;
+	border-radius: 2px;
 }
