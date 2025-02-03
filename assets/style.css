@@ -410,5 +410,8 @@ footer {
 }
 
 .noir{ 
-font-size: 0px;	
+font-size: 0px;
+z-index: -1;
+color: white !important;
+
 }
