@@ -409,9 +409,6 @@ footer {
 	border-radius: 2px;
 }
 
-
-
-
 .noir{ 
-z-index: -1;	
+font-size: 0px;	
 }
