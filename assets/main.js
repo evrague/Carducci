@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+    $("#tous").click(function() {
+        $(this).addClass("active-tag");
+    });
+
     $("#Entreprises").click(function() {
         $(this).addClass("active-tag");
     });
